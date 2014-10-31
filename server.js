@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 // Mongoose instance and connection to our mongolab database
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://<savethe>:<children>@ds049150.mongolab.com:49150/information');
+mongoose.connect('mongodb://savethe:children@ds049150.mongolab.com:49150/information');
 
 // Models, where we pull in the models for mongoDB data
 var Test = require('./models/test');
@@ -39,8 +39,6 @@ router.route('/tests')
 		var test = new Test(); // create a new instance of test
 		test.name = req.body.name; // what is this test's name in the request?
 
-		console.log ('your variable was set');
-		console.log(test.name);
 		test.save(function (err) { // yey 4 err hndlng doh
 			if (err) 
 				res.send(err);
