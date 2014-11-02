@@ -3,12 +3,12 @@ var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
 
+// Models, where we pull in the models for mongoDB data
+var Test = require('./models/test');
+
 // Mongoose instance and connection to our mongolab database
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://savethe:children@ds049150.mongolab.com:49150/information');
-
-// Models, where we pull in the models for mongoDB data
-var Test = require('./models/test');
 
 // bodyParser, whoot
 // this will let us get the data from a POST
@@ -40,9 +40,7 @@ router.route('/tests')
 		test.name = req.body.name; // what is this test's name in the request?
 
 		test.save(function (err) { // yey 4 err hndlng doh
-			if (err) 
-				res.send(err);
-
+			if (err) res.send(err);
 			res.json({message: 'Test created'});
 		});
 
@@ -53,8 +51,35 @@ router.route('/tests')
 			if (err) res.send(err);
 			res.json(tests)
 		})
+	});
+
+router.route('/tests/:test_id')
+	// Get a specific test's information
+	.get(function(req, res) {
+		Test.findById(req.params.test_id, function(err, test) {
+			if (err) res.send(err);
+			res.json(test);
+		});
 	})
 
+	// Update the information within a test
+	.put(function(req, res) {
+
+		Test.findById(req.params.test_id, function(err, test) {
+
+			if (err) res.send(err);
+
+			test.name = req.body.name; 	// update the test info
+
+			// save the test
+			test.save(function(err) {
+				if (err) res.send(err);
+
+				res.json({ message: 'Test updated!' });
+			});
+
+		});
+	});
 
 
 // Register Routes
