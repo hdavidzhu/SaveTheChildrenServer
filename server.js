@@ -34,6 +34,24 @@ router.get('/', function(req, res) {
 })
 
 // API Routes
+// This route will capture and save all teachers
+router.route('/teacher')
+	.post(function (req, res) {
+		// Do shizniz here
+	});
+	
+// This route will capture and save all students
+router.route('/student')
+	.post(function (req, res) {
+		// Do shizniz here
+	});
+
+// This route will capture and save all notes about students
+router.route('/student/note')
+	.post(function (req, res) {
+		// Do shizniz here
+	});
+
 router.route('/tests')
 	// create a test at POST https://localhost:300/api/test
 	.post(function (req, res){
@@ -66,20 +84,25 @@ router.route('/tests/:test_id')
 
 	// Update the information within a test
 	.put(function(req, res) {
-
 		Test.findById(req.params.test_id, function(err, test) {
-
 			if (err) res.send(err);
-
 			test.name = req.body.name; 	// update the test info
 
 			// save the test
 			test.save(function(err) {
 				if (err) res.send(err);
-
 				res.json({ message: 'Test updated!' });
 			});
 
+		});
+	})
+
+	.delete(function(req, res) {
+		Test.remove({ _id: req.params.test_id }, 
+
+		function(err, test) {
+			if (err)es.send(err);
+			res.json({ message: 'Successfully deleted' });
 		});
 	});
 
