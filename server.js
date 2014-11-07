@@ -23,6 +23,8 @@ var router = express.Router(); // get an instance of the express Router
 // Middleware that happens each time we make a request
 router.use(function(req, res, next) {
 	console.log('someone made a request, was it you?');
+	console.log('Request ', req.body);
+	// console.log('Resource ', res.body);
 	next(); // move to the next associated middleware
 })
 
