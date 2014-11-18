@@ -14,6 +14,8 @@ mongoose.connect('mongodb://savethe:children@ds049150.mongolab.com:49150/informa
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.set('views', __dirname + '/public');
+app.set('view engine', 'jade');
 
 var port = process.env.PORT || 3000; // set our port
 
@@ -29,9 +31,16 @@ router.use(function(req, res, next) {
 })
 
 // Test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-	res.json({ message: 'hooray! welcome to our api!' });	
-})
+router.route('/')
+	.get(function(req, res) {
+	console.log('hooray! welcome to our api!');	
+	Test.find(function (err, tests) {
+			if (err) res.send(err);
+			res.render('index', {tests:tests});
+			console.log('that worked');
+			console.log(tests);
+	})
+	});
 
 // API Routes
 // This route will capture and save all teachers
@@ -39,7 +48,7 @@ router.route('/teacher')
 	.post(function (req, res) {
 		// Do shizniz here
 	});
-	
+
 // This route will capture and save all students
 router.route('/student')
 	.post(function (req, res) {
@@ -55,6 +64,8 @@ router.route('/student/note')
 router.route('/tests')
 	// create a test at POST https://localhost:300/api/test
 	.post(function (req, res){
+
+		console.log('req.body', req.body);
 
 		var test = new Test(); // create a new instance of test
 		test.name = req.body.name; // what is this test's name in the request?
