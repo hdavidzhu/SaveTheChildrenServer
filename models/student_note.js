@@ -2,7 +2,8 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var StuNoteSchema   = new Schema({
-	name: String,
+	student_name: String,
+	teacher_name: String,
 	time: Date,
 	note: String
 });
