@@ -15,6 +15,8 @@ var db = require('./db');
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.set('views', __dirname + '/public');
+app.set('view engine', 'jade');
 
 // Set our port
 var port = process.env.PORT || 3002; 
