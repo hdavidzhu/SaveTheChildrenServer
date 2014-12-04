@@ -4,9 +4,7 @@ var app        = express();
 var bodyParser = require('body-parser');
 
 // Models, where we pull in the models for mongoDB data
-var ClassModule = require('./models/class_module');
-var Grade = require('./models/grade');
-var Subject = require('./models/subject');
+var Test = require('./models/test');
 
 // Mongoose instance and connection to our mongolab database
 var db = require('./db');
@@ -16,94 +14,34 @@ var db = require('./db');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Set our port
-var port = process.env.PORT || 3002; 
+var port = process.env.PORT || 3000; // set our port
 
 // Routing
 var router = express.Router(); // get an instance of the express Router
 
-// Test route to make sure everything is working
+// Setting schemas
+var StudentModel = require ('./models/student');
+
+// Middleware that happens each time we make a request
+router.use(function(req, res, next) {
+	// console.log('someone made a request, was it you?');
+	// console.log('Request ', req.body);
+	// console.log(typeof req.body);
+	// console.log(req.body.name);
+	// console.log('Resource ', res.body);
+	next(); // move to the next associated middleware
+})
+
+// Test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
 	res.json({ message: 'Hooray! Welcome to our API!' });	
-});
+})
 
 // API Routes
-
-router.route('/subjects')
-	.get(function (req, res) {
-		Subject
-			.find()
-			.exec(function (err, subjects) {
-				if (err) return handleError(err);
-				var subjects_list = [];
-				for (i = 0; i < subjects.length; i++) { 
-					subjects_list.push(subjects[i].name);
-				}
-				res.send(subjects_list);
-			})
-	});
-
-router.route('/subject/:subject')
-	.get(function (req, res) {
-		var subject = req.params.subject;
-		Subject
-		  .where("name",subject)
-		  .findOne()
-		  .exec(function (err,subject_info) {
-		  	if (err) return handleError(err);
-		  	Grade
-		  		.where("subject_id", subject_info._id)
-		  		.select("_id name")	
-		  		.find()
-		  		.exec(function (err,grades) {
-		  			res.send([subject_info, grades]);
-		  		})
-		  })
-	});
-
-router.route('/subject/:subject/:grade')
-	.get(function (req, res) {
-		var subject = req.params.subject;
-		var grade = req.params.grade;
-		Grade
-			.where("subject_id").equals(subject)
-			.where("name").equals(grade)
-			.findOne()
-			.exec(function (err, grade_info) {
-		  	if (err) return handleError(err);
-		  	ClassModule
-		  		.where("grade_id", grade_info._id)
-		  		.select("_id name")
-		  		.find()
-		  		.exec(function (err,class_modules) {
-		  			res.send([grade_info, class_modules]);
-		  		})
-			})
-	});
-
-router.route('/class_module/:class_module')
-	.get(function (req, res) {
-		var class_module = req.params.class_module;
-		ClassModule
-			.where("name", class_module)
-			.findOne()
-			.exe(function (err, class_module_info) {
-				res.send(class_module_info);
-			})
-	});
-
-// Register Routes
-// All of our routes will be prefixed with /api
-app.use('/', router);
-
-// Server
-app.listen(port);
-console.log('Server listening on', port);
-
-/**
 // This route will capture and save all teachers
 router.route('/teachers')
 	.get(function (req, res) {
+		
 	});
 	
 // This route will capture and save all students
@@ -221,4 +159,11 @@ router.route('/tests/:test_id')
 			res.json({ message: 'Successfully deleted' });
 		});
 	});
-**/
+
+// Register Routes
+// All of our routes will be prefixed with /api
+app.use('/api', router);
+
+// Server
+app.listen(port);
+console.log('Server listening on', port);
