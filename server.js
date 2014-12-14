@@ -78,8 +78,8 @@ router.route('/subject/:subject/:grade')
 		  		// .select("_id name")
 		  		.find()
 		  		.exec(function (err,class_modules) {
-		  			console.log(class_modules);
-		  			res.send([grade_info, class_modules]);
+		  			var grade_id = grade_info._id;
+		  			res.send({grade_id: class_modules});
 		  		})
 			})
 	});
