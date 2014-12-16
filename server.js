@@ -78,8 +78,7 @@ router.route('/subject/:subject/:grade')
 		  		// .select("_id name")
 		  		.find()
 		  		.exec(function (err,class_modules) {
-		  			var grade_id = grade_info._id;
-		  			res.send({grade_id: class_modules});
+		  			res.send({grade_info: class_modules});
 		  		})
 			})
 	});
@@ -105,7 +104,7 @@ router.route('/teachers')
 				for (i = 0; i < teachers.length; i++) { 
 					teachers_list.push(teachers[i].name);
 				}
-				res.send(teachers_list);
+				res.send({"teachers": teachers_list});
 			})
 	});
 
@@ -124,6 +123,7 @@ router.route('/teacher/:teacher')
 			var teacher = req.params.teacher;
 			var classModuleRecord = new ClassModule(req.body);
 			console.log(classModuleRecord);
+			console.log(req.body);
 
 			Teacher
 			  .where("name",teacher)
@@ -142,7 +142,7 @@ router.route('/teacher/:teacher')
 			  		}
 			  	})
 			  })
-		});;
+		});
 
 // Register Routes
 // All of our routes will be prefixed with /api
