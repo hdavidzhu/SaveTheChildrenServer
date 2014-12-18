@@ -136,6 +136,7 @@ router.route('/tna')
 			})
 	});
 
+// View all the tutors that need help for this class Module.
 router.route('/tna/:class_module')
 	.get(function (req, res) {
 		var class_module = req.params.class_module;
@@ -149,6 +150,28 @@ router.route('/tna/:class_module')
 					teacher_names.push(teachers[i].name);
 				}
 				res.send({"teachers": teacher_names});
+			})
+	});
+
+// Clear all module.
+router.route('/tna/:class_module/delete')
+	.get(function (req, res) {
+		var class_module = req.params.class_module;
+		Teacher
+			.find({'help': class_module})
+			.exec(function (err, teachers) {
+				if (err) return handleError(err);
+				for (i = 0; i < teachers.length; i++) {
+					teachers[i].help.pull(class_module);
+					teachers[i].save(function(err) {
+			  		if (err) {
+			  			console.log(err);
+			  			res.status(500).json({status: 'failure'});
+			  		} else {
+			  			res.json({status: 'success'});
+			  		}
+			  	})
+				}
 			})
 	});
 
