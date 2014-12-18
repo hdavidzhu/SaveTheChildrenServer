@@ -139,12 +139,16 @@ router.route('/tna')
 router.route('/tna/:class_module')
 	.get(function (req, res) {
 		var class_module = req.params.class_module;
+		var teacher_names = [];
 		Teacher
 			.find({'help': class_module})
 			.select('name')
 			.exec(function (err, teachers) {
 				if (err) return handleError(err);
-				res.send(teachers);
+				for (i = 0; i < teachers.length; i++) {
+					teacher_names.push(teachers[i].name);
+				}
+				res.send({"teachers": teacher_names});
 			})
 	});
 
