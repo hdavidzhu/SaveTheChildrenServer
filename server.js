@@ -31,6 +31,8 @@ router.get('/', function(req, res) {
 });
 
 // API Routes
+
+// Get all subjects.
 router.route('/subjects')
 	.get(function (req, res) {
 		Subject
@@ -45,6 +47,7 @@ router.route('/subjects')
 			})
 	});
 
+// Get all grades of the subject.
 router.route('/subject/:subject')
 	.get(function (req, res) {
 		var subject = req.params.subject;
@@ -63,6 +66,7 @@ router.route('/subject/:subject')
 		  })
 	});
 
+// Get all class modules of the grade.
 router.route('/subject/:subject/:grade')
 	.get(function (req, res) {
 		var subject = req.params.subject;
@@ -83,6 +87,7 @@ router.route('/subject/:subject/:grade')
 			})
 	});
 
+// Get information on the class module.
 router.route('/class_module/:class_module')
 	.get(function (req, res) {
 		var class_module = req.params.class_module;
@@ -94,6 +99,7 @@ router.route('/class_module/:class_module')
 			})
 	});
 
+// Get all teachers.
 router.route('/teachers')
 	.get(function (req, res) {
 		Teacher
@@ -106,8 +112,25 @@ router.route('/teachers')
 				}
 				res.send({"teachers": teachers_list});
 			})
+	})
+	.post(function (req, res) {
+		var teacherRecord = new Teacher(req.body);
+
+		Teacher
+			.find({ name: req.body.name })
+			.exec(function (err, teachers) {
+				if (err) return handleError(err);
+				if (teachers.length == 0) {
+					teacherRecord.save(function (err, teacherRecord) {
+						if (err) return console.log(err);
+						console.dir(teacherRecord);
+		  			res.json({status: 'success'});
+					});
+				}
+		});
 	});
 
+// Get information on specific teacher and their modules.
 router.route('/teacher/:teacher')
 	.get(function (req, res) {
 			var teacher = req.params.teacher;
@@ -122,21 +145,44 @@ router.route('/teacher/:teacher')
 	.post(function (req, res) {
 			var teacher = req.params.teacher;
 			var classModuleRecord = new ClassModule(req.body);
-			console.log(classModuleRecord);
-			console.log(req.body);
 
 			Teacher
 			  .where("name",teacher)
 			  .findOne()
 			  .exec(function (err,teacher_info) {
 			  	if (err) return handleError(err);
-			  	teacher_info.help.push(classModuleRecord);
-			  	console.log(teacher_info.help);
+			  	teacher_info.help.push(req.body.module);
 
 			  	teacher_info.save(function(err) {
 			  		if (err) {
 			  			console.log(err);
 			  			res.status(500).json({status: 'failure'});
+
+			  		} else {
+			  			res.json({status: 'success'});
+			  		}
+			  	})
+			  })
+		});
+
+
+// This is written as a POST request because Volley cannot pass arguments in its DELETE request.
+router.route('/teacher/:teacher/delete/')
+	.post(function (req, res) {
+			var teacher = req.params.teacher;
+
+			Teacher
+			  .where("name",teacher)
+			  .findOne()
+			  .exec(function (err,teacher_info) {
+			  	if (err) return handleError(err);
+			  	teacher_info.help.pull(req.body.module);
+
+			  	teacher_info.save(function(err) {
+			  		if (err) {
+			  			console.log(err);
+			  			res.status(500).json({status: 'failure'});
+
 			  		} else {
 			  			res.json({status: 'success'});
 			  		}
