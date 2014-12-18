@@ -1,0 +1,113 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 warn package.json node-api@ No repository field.
+5 verbose readDependencies using package.json deps
+6 verbose install where, deps [ 'C:\\cygwin64\\home\\hzhu\\SaveTheChildrenServer',
+6 verbose install   [ 'express',
+6 verbose install     'mongoose',
+6 verbose install     'body-parser',
+6 verbose install     'jade',
+6 verbose install     'faker',
+6 verbose install     'mocha',
+6 verbose install     'should',
+6 verbose install     'supertest' ] ]
+7 info preinstall node-api@
+8 verbose readDependencies using package.json deps
+9 verbose already installed skipping express@~4.0.0 C:\cygwin64\home\hzhu\SaveTheChildrenServer
+10 verbose already installed skipping mongoose@~3.6.13 C:\cygwin64\home\hzhu\SaveTheChildrenServer
+11 verbose already installed skipping body-parser@~1.0.1 C:\cygwin64\home\hzhu\SaveTheChildrenServer
+12 verbose already installed skipping jade@~1.7.0 C:\cygwin64\home\hzhu\SaveTheChildrenServer
+13 verbose cache add [ 'faker@~0.7.2', null ]
+14 verbose cache add name=undefined spec="faker@~0.7.2" args=["faker@~0.7.2",null]
+15 verbose parsed url { protocol: null,
+15 verbose parsed url   slashes: null,
+15 verbose parsed url   auth: null,
+15 verbose parsed url   host: null,
+15 verbose parsed url   port: null,
+15 verbose parsed url   hostname: null,
+15 verbose parsed url   hash: null,
+15 verbose parsed url   search: null,
+15 verbose parsed url   query: null,
+15 verbose parsed url   pathname: 'faker@~0.7.2',
+15 verbose parsed url   path: 'faker@~0.7.2',
+15 verbose parsed url   href: 'faker@~0.7.2' }
+16 verbose already installed skipping mocha@^2.0.1 C:\cygwin64\home\hzhu\SaveTheChildrenServer
+17 verbose already installed skipping should@^4.3.0 C:\cygwin64\home\hzhu\SaveTheChildrenServer
+18 verbose already installed skipping supertest@^0.15.0 C:\cygwin64\home\hzhu\SaveTheChildrenServer
+19 verbose cache add name="faker" spec="~0.7.2" args=["faker","~0.7.2"]
+20 verbose parsed url { protocol: null,
+20 verbose parsed url   slashes: null,
+20 verbose parsed url   auth: null,
+20 verbose parsed url   host: null,
+20 verbose parsed url   port: null,
+20 verbose parsed url   hostname: null,
+20 verbose parsed url   hash: null,
+20 verbose parsed url   search: null,
+20 verbose parsed url   query: null,
+20 verbose parsed url   pathname: '~0.7.2',
+20 verbose parsed url   path: '~0.7.2',
+20 verbose parsed url   href: '~0.7.2' }
+21 verbose addNamed [ 'faker', '~0.7.2' ]
+22 verbose addNamed [ null, '>=0.7.2-0 <0.8.0-0' ]
+23 silly lockFile 20e1281a-faker-0-7-2 faker@~0.7.2
+24 verbose lock faker@~0.7.2 C:\Users\hzhu\AppData\Roaming\npm-cache\20e1281a-faker-0-7-2.lock
+25 silly addNameRange { name: 'faker', range: '>=0.7.2-0 <0.8.0-0', hasData: false }
+26 verbose request where is /faker
+27 verbose request registry https://registry.npmjs.org/
+28 verbose request id a29b814c04c03fd1
+29 verbose url raw /faker
+30 verbose url resolving [ 'https://registry.npmjs.org/', './faker' ]
+31 verbose url resolved https://registry.npmjs.org/faker
+32 verbose request where is https://registry.npmjs.org/faker
+33 info trying registry request attempt 1 at 22:56:36
+34 verbose etag "A8JHFCH3H7S87A1KUVBK0OAYJ"
+35 http GET https://registry.npmjs.org/faker
+36 http 200 https://registry.npmjs.org/faker
+37 silly registry.get cb [ 200,
+37 silly registry.get   { date: 'Thu, 18 Dec 2014 03:56:36 GMT',
+37 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+37 silly registry.get     etag: '"EC5UZR3C7BKKUK0P3Q2PKB9A0"',
+37 silly registry.get     'content-type': 'application/json',
+37 silly registry.get     'cache-control': 'max-age=60',
+37 silly registry.get     'content-length': '17417',
+37 silly registry.get     'accept-ranges': 'bytes',
+37 silly registry.get     via: '1.1 varnish',
+37 silly registry.get     age: '0',
+37 silly registry.get     'x-served-by': 'cache-atl6225-ATL',
+37 silly registry.get     'x-cache': 'HIT',
+37 silly registry.get     'x-cache-hits': '1',
+37 silly registry.get     'x-timer': 'S1418874996.504445,VS0,VE314',
+37 silly registry.get     vary: 'Accept',
+37 silly registry.get     'keep-alive': 'timeout=10, max=50',
+37 silly registry.get     connection: 'Keep-Alive' } ]
+38 silly addNameRange number 2 { name: 'faker', range: '>=0.7.2-0 <0.8.0-0', hasData: true }
+39 silly addNameRange versions [ 'faker',
+39 silly addNameRange   [ '1.0.0',
+39 silly addNameRange     '1.0.1',
+39 silly addNameRange     '1.1.0',
+39 silly addNameRange     '2.0.0',
+39 silly addNameRange     '2.0.1',
+39 silly addNameRange     '2.0.2',
+39 silly addNameRange     '2.0.3',
+39 silly addNameRange     '2.1.0',
+39 silly addNameRange     '2.1.1' ] ]
+40 silly lockFile 20e1281a-faker-0-7-2 faker@~0.7.2
+41 silly lockFile 20e1281a-faker-0-7-2 faker@~0.7.2
+42 error notarget No compatible version found: faker@'>=0.7.2-0 <0.8.0-0'
+42 error notarget Valid install targets:
+42 error notarget ["1.0.0","1.0.1","1.1.0","2.0.0","2.0.1","2.0.2","2.0.3","2.1.0","2.1.1"]
+42 error notarget
+42 error notarget This is most likely not a problem with npm itself.
+42 error notarget In most cases you or one of your dependencies are requesting
+42 error notarget a package version that doesn't exist.
+43 error System Windows_NT 6.1.7601
+44 error command "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+45 error cwd C:\cygwin64\home\hzhu\SaveTheChildrenServer
+46 error node -v v0.10.33
+47 error npm -v 1.4.28
+48 error code ETARGET
+49 verbose exit [ 1, true ]
