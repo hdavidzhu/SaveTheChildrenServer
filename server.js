@@ -22,7 +22,6 @@ app.set('view engine', 'jade');
 // Set our port
 var port = process.env.PORT || 3000; 
 
-
 function frequency(arr) {
   var a = [], b = [], prev;
   var jsonFrequency = {};
@@ -44,8 +43,6 @@ function frequency(arr) {
 
   return jsonFrequency;
 }	
-
-
 
 // Routing
 var router = express.Router(); // get an instance of the express Router
@@ -151,7 +148,6 @@ router.route('/tna/:class_module')
 			})
 	});
 
-
 // Get all teachers.
 router.route('/teachers')
 	.get(function (req, res) {
@@ -181,6 +177,17 @@ router.route('/teachers')
 					});
 				}
 		});
+	});
+
+// Remove teachers.
+router.route('/teachers/delete/:teacher_name')
+	.get(function (req, res) {
+		teacher_name = req.params.teacher_name
+		Teacher
+			.find({'name': teacher_name})
+			.remove(function (err) {
+				res.send(err);
+			});
 	});
 
 // Get information on specific teacher and their modules.
