@@ -22,6 +22,31 @@ app.set('view engine', 'jade');
 // Set our port
 var port = process.env.PORT || 3000; 
 
+
+function frequency(arr) {
+  var a = [], b = [], prev;
+  var jsonFrequency = {};
+
+  arr.sort();
+  for ( var i = 0; i < arr.length; i++ ) {
+    if ( arr[i] !== prev ) {
+      a.push(arr[i]);
+      b.push(1);
+    } else {
+      b[b.length-1]++;
+    }
+    prev = arr[i];
+  }
+
+  for ( var i = 0; i < a.length; i++ ) {
+  	jsonFrequency[a[i]] = b[i];
+  }
+
+  return jsonFrequency;
+}	
+
+
+
 // Routing
 var router = express.Router(); // get an instance of the express Router
 
@@ -96,6 +121,21 @@ router.route('/class_module/:class_module')
 			.findOne()
 			.exec(function (err, class_module_info) {
 				res.send(class_module_info);
+			})
+	});
+
+router.route('/tna')
+	.get(function (req, res) {
+		var combined_modules = [];
+		Teacher
+			.find()
+			// .select('help')
+			.exec(function (err, teachers) {
+				if (err) return handleError(err);
+				for (i = 0; i < teachers.length; i++) {
+					combined_modules = combined_modules.concat(teachers[i].help);
+				}
+				res.send(frequency(combined_modules));
 			})
 	});
 
